@@ -57,11 +57,15 @@
 -- 25. Retorna el nom del producte, el seu preu i el nom del seu fabricant, del producte més barat.
     SELECT p.nombre, p.precio AS 'precio más barato', f.nombre AS 'fabricante' FROM producto AS p, fabricante as f WHERE p.codigo_fabricante = f.codigo ORDER BY precio ASC LIMIT 1;
 -- 26. Retorna el nom del producte, el seu preu i el nom del seu fabricant, del producte més car.
-    SELECT p.nombre, p.precio AS 'precio más barato', f.nombre AS 'fabricante' FROM producto AS p, fabricante as f WHERE p.codigo_fabricante = f.codigo ORDER BY precio DESC LIMIT 1;
--- Retorna una llista de tots els productes del fabricador Lenovo.
--- Retorna una llista de tots els productes del fabricant Crucial que tinguin un preu major que 200€.
--- Retorna un llistat amb tots els productes dels fabricants Asus, Hewlett-Packardy Seagate. Sense utilitzar l'operador IN.
--- Retorna un llistat amb tots els productes dels fabricants Asus, Hewlett-Packardy Seagate. Utilitzant l'operador IN.
+    SELECT p.nombre, p.precio AS 'precio más caro', f.nombre AS 'fabricante' FROM producto AS p, fabricante as f WHERE p.codigo_fabricante = f.codigo ORDER BY precio DESC LIMIT 1;
+-- 27. Retorna una llista de tots els productes del fabricador Lenovo.
+    SELECT p.nombre, p.precio  FROM producto AS p JOIN fabricante AS f ON p.codigo_fabricante = f.codigo WHERE f.nombre = "Lenovo";
+-- 28. Retorna una llista de tots els productes del fabricant Crucial que tinguin un preu major que 200€.
+    SELECT p.nombre, max(p.precio) AS maximo  FROM producto AS p JOIN fabricante AS f ON p.codigo_fabricante = f.codigo WHERE f.nombre = "Crucial";
+-- 29. Retorna un llistat amb tots els productes dels fabricants Asus, Hewlett-Packardy Seagate. Sense utilitzar l'operador IN.
+    SELECT p.nombre, p.precio, f.nombre  FROM producto AS p JOIN fabricante AS f ON p.codigo_fabricante = f.codigo WHERE f.nombre = "Asus" || f.nombre = "Hewlett-Packard";
+-- 30. Retorna un llistat amb tots els productes dels fabricants Asus, Hewlett-Packardy Seagate. Utilitzant l'operador IN.
+
 -- Retorna un llistat amb el nom i el preu de tots els productes dels fabricants el nom dels quals acabi per la vocal e.
 -- Retorna un llistat amb el nom i el preu de tots els productes el nom de fabricant dels quals contingui el caràcter w en el seu nom.
 -- Retorna un llistat amb el nom de producte, preu i nom de fabricant, de tots els productes que tinguin un preu major o igual a 180€. Ordeni el resultat en primer lloc pel preu (en ordre descendent) i en segon lloc pel nom (en ordre ascendent)
