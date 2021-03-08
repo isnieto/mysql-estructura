@@ -45,7 +45,7 @@ CREATE TABLE `customers` (
   `firstname` varchar(255),
   `lastname` varchar(255),
   `address_id` int,
-  `phone` int
+  `phone_id` int
 );
 
 CREATE TABLE `store` (
@@ -113,7 +113,7 @@ ALTER TABLE `delivering` ADD FOREIGN KEY (`order_id`) REFERENCES `order` (`order
 
 ALTER TABLE `address` ADD FOREIGN KEY (`address_id`) REFERENCES `customers` (`address_id`);
 
-ALTER TABLE `customers` ADD FOREIGN KEY (`phone`) REFERENCES `phone` (`phone_id`);
+ALTER TABLE `customers` ADD FOREIGN KEY (`phone_id`) REFERENCES `phone` (`phone_id`);
 
 ALTER TABLE `employee` ADD FOREIGN KEY (`job_id`) REFERENCES `job` (`job_id`);
 
@@ -121,12 +121,12 @@ ALTER TABLE `phone` ADD FOREIGN KEY (`phone_id`) REFERENCES `employee` (`phone_n
 
 ALTER TABLE `employee` ADD FOREIGN KEY (`store_id`) REFERENCES `store` (`store_id`);
 
-ALTER TABLE `address` ADD FOREIGN KEY (`address_id`) REFERENCES `store` (`address_id`);
-
 ALTER TABLE `address` ADD FOREIGN KEY (`city_id`) REFERENCES `city` (`city_id`);
 
 ALTER TABLE `address` ADD FOREIGN KEY (`state_id`) REFERENCES `state` (`state_id`);
 
 ALTER TABLE `city` ADD FOREIGN KEY (`city_id`) REFERENCES `state` (`city_id`);
 
-ALTER TABLE `store` ADD FOREIGN KEY (`store_id`) REFERENCES `order` (`store_id`);
+ALTER TABLE `address` ADD FOREIGN KEY (`address_id`) REFERENCES `store` (`address_id`);
+
+ALTER TABLE `order` ADD FOREIGN KEY (`store_id`) REFERENCES `store` (`store_id`);

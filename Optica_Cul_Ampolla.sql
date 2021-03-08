@@ -58,8 +58,7 @@ CREATE TABLE `customers` (
   `address_id` int,
   `phone` int,
   `email` varchar(255),
-  `registered_at` date,
-  `employee_id` int
+  `registered_at` date
 );
 
 CREATE TABLE `employee` (
@@ -100,7 +99,8 @@ CREATE TABLE `item_sales` (
   `sale_id` int,
   `glass_id` int,
   `quantity` int,
-  `sales_price` decimal
+  `sales_price` decimal,
+  `employee_id` int
 );
 
 CREATE TABLE `sales` (
@@ -126,8 +126,6 @@ ALTER TABLE `items_ordered` ADD FOREIGN KEY (`glass_id`) REFERENCES `glasses` (`
 
 ALTER TABLE `order` ADD FOREIGN KEY (`supplier_id`) REFERENCES `supplier` (`supplier_id`);
 
-ALTER TABLE `customers` ADD FOREIGN KEY (`employee_id`) REFERENCES `employee` (`employee_id`);
-
 ALTER TABLE `address` ADD FOREIGN KEY (`address_id`) REFERENCES `customers` (`address_id`);
 
 ALTER TABLE `address` ADD FOREIGN KEY (`city_id`) REFERENCES `city` (`city_id`);
@@ -141,4 +139,8 @@ ALTER TABLE `recommendations` ADD FOREIGN KEY (`recommended_id`) REFERENCES `cus
 ALTER TABLE `item_sales` ADD FOREIGN KEY (`sale_id`) REFERENCES `sales` (`sale_id`);
 
 ALTER TABLE `sales` ADD FOREIGN KEY (`sale_id`) REFERENCES `customers` (`customer_id`);
+
+ALTER TABLE `item_sales` ADD FOREIGN KEY (`glass_id`) REFERENCES `glasses` (`glass_id`);
+
+ALTER TABLE `item_sales` ADD FOREIGN KEY (`employee_id`) REFERENCES `employee` (`employee_id`);
 
