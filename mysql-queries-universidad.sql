@@ -70,19 +70,31 @@
    SELECT d.nombre, count(p.id_profesor) AS 'numero_profesores' FROM profesor p JOIN departamento d ON p.id_departamento = d.id GROUP BY p.id_departamento ORDER BY  count(p.id_profesor) DESC;
 
 
--- 19. Retorna un llistat amb tots els departaments i el nombre de professors que hi ha en cadascun d'ells. Tingui en compte que poden existir departaments que no tenen 
--- professors associats. Aquests departaments també han d'aparèixer en el llistat.
-
+-- 19. Retorna un llistat amb tots els departaments i el nombre de professors que hi ha en cadascun d'ells.
+--  Tingui en compte que poden existir departaments que no tenen professors associats. Aquests departaments també han d'aparèixer en el llistat.
+?????
+SELECT
+	d.nombre,
+	p.id_profesor,
+	p.id_departamento 
+FROM
+	departamento d
+LEFT JOIN profesor p ON
+	d.id = p.id_departamento
+GROUP by d.id;
 
 
 -- 20. Retorna un llistat amb el nom de tots els graus existents en la base de dades i el nombre d'assignatures que té cadascun. 
 -- Tingui en compte que poden existir graus que no tenen assignatures associades. Aquests graus també han d'aparèixer en el llistat. 
 -- El resultat haurà d'estar ordenat de major a menor pel nombre d'assignatures.
-    select t.nombre,t.numero from (select g.nombre as nombre, count(a.nombre) as numero  from grado as g, asignatura as a where g.id = a.id_grado group by g.nombre) as t where t.numero>40;
+    select nombre, numero from ( select g.nombre as nombre, count(a.nombre) AS numero  from grado g, asignatura a where g.id = a.id_grado group by g.nombre
+    ) where numero>40;
 
 -- 21. Retorna un llistat amb el nom de tots els graus existents en la base de dades i el nombre d'assignatures que té cadascun, dels graus que tinguin més de 40 assignatures associades.
+    SELECT 	g.nombre, a.nombre, count(g.nombre) as nr FROM grado g join asignatura a on g.id = a.id_grado GROUP BY g.nombre HAVING 	count(g.nombre) > 40;
 
 -- 22. Retorna un llistat que mostri el nom dels graus i la suma del nombre total de crèdits que hi ha per a cada tipus d'assignatura. El resultat ha de tenir tres columnes: nom del grau, tipus d'assignatura i la suma dels crèdits de totes les assignatures que hi ha d'aquest tipus.
+    SELECT 	g.nombre, a.tipo, count(a.creditos) As 'nr.creditos' FROM grado g JOIN asignatura a ON g.id = a.id_grado GROUP BY a.creditos;
 
 -- 23. Retorna un llistat que mostri quants alumnes s'han matriculat d'alguna assignatura en cadascun dels cursos escolars. El resultat haurà de mostrar dues columnes, una columna amb l'any d'inici del curs escolar i una altra amb el nombre d'alumnes matriculats.
 
