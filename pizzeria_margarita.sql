@@ -1,3 +1,7 @@
+DROP DATABASE IF EXISTS pizzeria_margarita;
+CREATE DATABASE pizzeria_margarita CHARACTER SET utf8mb4;
+USE pizzeria_margarita;
+
 CREATE TABLE `order` (
   `order_id` int PRIMARY KEY AUTO_INCREMENT,
   `order_date` datetime,
@@ -44,14 +48,24 @@ CREATE TABLE `customers` (
   `customer_id` int PRIMARY KEY AUTO_INCREMENT,
   `firstname` varchar(255),
   `lastname` varchar(255),
-  `address_id` int,
-  `phone_id` int
+  `phone` int,
+  `street` varchar(255),
+  `number` int,
+  `floot` int,
+  `door` varchar(255),
+  `city_id` int,
+  `zip` int
 );
 
 CREATE TABLE `store` (
   `store_id` int PRIMARY KEY AUTO_INCREMENT,
   `name` varchar(255),
-  `address_id` int
+  `street` varchar(255),
+  `number` int,
+  `floot` int,
+  `door` varchar(255),
+  `city_id` int,
+  `zip` int
 );
 
 CREATE TABLE `employee` (
@@ -67,22 +81,6 @@ CREATE TABLE `employee` (
 CREATE TABLE `job` (
   `job_id` int PRIMARY KEY AUTO_INCREMENT,
   `job` varchar(255)
-);
-
-CREATE TABLE `address` (
-  `address_id` int PRIMARY KEY AUTO_INCREMENT,
-  `street` varchar(255),
-  `number` int,
-  `floot` int,
-  `door` varchar(255),
-  `city_id` int,
-  `zip` int,
-  `state_id` int
-);
-
-CREATE TABLE `phone` (
-  `phone_id` int PRIMARY KEY AUTO_INCREMENT,
-  `phone_number` int
 );
 
 CREATE TABLE `city` (
@@ -111,22 +109,12 @@ ALTER TABLE `delivering` ADD FOREIGN KEY (`employee_id`) REFERENCES `employee` (
 
 ALTER TABLE `delivering` ADD FOREIGN KEY (`order_id`) REFERENCES `order` (`order_id`);
 
-ALTER TABLE `address` ADD FOREIGN KEY (`address_id`) REFERENCES `customers` (`address_id`);
-
-ALTER TABLE `customers` ADD FOREIGN KEY (`phone_id`) REFERENCES `phone` (`phone_id`);
-
 ALTER TABLE `employee` ADD FOREIGN KEY (`job_id`) REFERENCES `job` (`job_id`);
-
-ALTER TABLE `phone` ADD FOREIGN KEY (`phone_id`) REFERENCES `employee` (`phone_number`);
 
 ALTER TABLE `employee` ADD FOREIGN KEY (`store_id`) REFERENCES `store` (`store_id`);
 
-ALTER TABLE `address` ADD FOREIGN KEY (`city_id`) REFERENCES `city` (`city_id`);
-
-ALTER TABLE `address` ADD FOREIGN KEY (`state_id`) REFERENCES `state` (`state_id`);
-
-ALTER TABLE `city` ADD FOREIGN KEY (`city_id`) REFERENCES `state` (`city_id`);
-
-ALTER TABLE `address` ADD FOREIGN KEY (`address_id`) REFERENCES `store` (`address_id`);
-
 ALTER TABLE `order` ADD FOREIGN KEY (`store_id`) REFERENCES `store` (`store_id`);
+
+ALTER TABLE `city` ADD FOREIGN KEY (`state_id`) REFERENCES `state` (`state_id`);
+
+ALTER TABLE `store` ADD FOREIGN KEY (`city_id`) REFERENCES `city` (`city_id`);
