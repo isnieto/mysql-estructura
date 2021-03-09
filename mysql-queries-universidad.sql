@@ -72,7 +72,7 @@
 
 -- 19. Retorna un llistat amb tots els departaments i el nombre de professors que hi ha en cadascun d'ells.
 --  Tingui en compte que poden existir departaments que no tenen professors associats. Aquests departaments també han d'aparèixer en el llistat.
-?????
+????
 SELECT
 	d.nombre,
 	p.id_profesor,
