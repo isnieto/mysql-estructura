@@ -12,9 +12,12 @@ SELECT d.nombre FROM departamento d LEFT JOIN profesor p on d.id = p.id_departam
 SELECT p.apellido1, p.apellido2, p.nombre FROM persona p LEFT JOIN asignatura a ON p.id = a.id_profesor WHERE a.id_profesor IS NULL ORDER BY p.apellido1, p.apellido2, p.nombre ASC;
 SELECT a.id, a.nombre, a.id_profesor FROM asignatura a LEFT JOIN persona p ON a.id_profesor = p.id WHERE a.id_profesor is NULL;
 SELECT count(id) AS numero_total_alumnos FROM persona WHERE tipo = 'alumno' limit 10;
+SELECT d.nombre FROM departamento d LEFT JOIN profesor p ON d.id = p.id_departamento LEFT JOIN  asignatura a ON a.id_profesor = p.id_profesor WHERE a.curso is Null GROUP BY d.nombre;
 SELECT count(id) AS 'nacidos_en_1999' FROM persona WHERE tipo = 'alumno' && fecha_nacimiento like '%1999%';
 SELECT d.nombre, count(p.id_profesor) AS 'numero_profesores' FROM profesor p JOIN departamento d ON p.id_departamento = d.id GROUP BY p.id_departamento ORDER BY  count(p.id_profesor) DESC;
+SELECT d.nombre, count(r.id) AS 'Nr.profesores' FROM departamento d LEFT JOIN  profesor p ON  d.id = p.id_departamento LEFT JOIN persona r On  r.id = p.id_profesor GROUP BY d.nombre;
 SELECT nombre, numero FROM (SELECT g.nombre as nombre, count(a.nombre) AS numero  FROM grado g, asignatura a WHERE g.id = a.id_grado group by g.nombre) WHERE numero>40;
 SELECT g.nombre, a.nombre, count(g.nombre) as nr FROM grado g join asignatura a on g.id = a.id_grado GROUP BY g.nombre HAVING 	count(g.nombre) > 40;
 SELECT g.nombre, a.tipo, count(a.creditos) As 'nr.creditos' FROM grado g JOIN asignatura a ON g.id = a.id_grado GROUP BY a.creditos;
-
+SELECT s.nombre, c.anyo_inicio, count(A.id_alumno) FROM alumno_se_matricula_asignatura A JOIN asignatura s ON A.id_asignatura = s.id JOIN curso_escolar c ON A.id_curso_escolar = c.id GROUP BY c.anyo_inicio;
+SELECT p.nif, p.nombre, p.apellido1 , p.apellido2, p.ciudad, p.direccion, p.fecha_nacimiento, p.sexo, p.telefono, s.nombre, c.anyo_inicio, c.anyo_fin, g.nombre FROM  persona p JOIN alumno_se_matricula_asignatura a ON  p.id = a.id_alumno LEFT JOIN asignatura s  ON  s.id = a.id_asignatura LEFT JOIN curso_escolar c ON c.id = a.id_curso_escolar LEFT JOIN grado g ON g.id = s.id_grado WHERE p.tipo = 'alumno' ORDER by p.fecha_nacimiento DESC LIMIT 3;
